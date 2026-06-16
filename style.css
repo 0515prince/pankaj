@@ -220,7 +220,7 @@ section{position:relative;z-index:1}
 .modal-close{background:var(--glass);border:none;border-radius:8px;width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text);transition:var(--ease)}
 .modal-close:hover{background:var(--primary)}
 .modal-video-wrapper{position:relative;aspect-ratio:16/9;background:#000}
-.modal-video-wrapper iframe{width:100%;height:100%;border:none;display:block}
+.modal-video-wrapper iframe, .modal-video-wrapper video{width:100%;height:100%;border:none;display:block}
 .yt-fallback-btn{display:block;text-align:center;padding:14px;background:#FF0000;color:#fff;font-weight:700;font-size:0.95rem;transition:background 0.2s}
 .yt-fallback-btn:hover{background:#CC0000}
 .yt-fallback-btn.hidden{display:none}
