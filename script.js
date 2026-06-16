@@ -108,16 +108,75 @@ window.playDirectly = function(card, id) {
   card.classList.add('playing');
   currentlyPlayingCard = card;
 
-  // Replace card HTML with native HTML5 video player
+  // Replace card HTML with native HTML5 video player, spinner, and error display
   card.innerHTML = `
     <video 
-      src="https://drive.google.com/uc?export=download&id=${id}" 
-      controls 
+      src="https://drive.usercontent.google.com/download?id=${id}&confirm=t" 
       autoplay 
+      controls 
       playsinline 
-      style="width:100%; height:100%; object-fit:cover; display:block; background:#000;"
+      webkit-playsinline
+      style="width:100%; height:100%; border:none; display:block; background:#000; object-fit:cover;"
     ></video>
+    <div class="video-loader" style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:30px; height:30px; border:3px solid rgba(255,255,255,0.2); border-top-color:#ff416c; border-radius:50%; animation:spin-loader 0.8s linear infinite; pointer-events:none; z-index:5;"></div>
+    <div class="video-error-msg" style="position:absolute; top:0; left:0; width:100%; height:100%; background:rgba(10,10,12,0.95); color:#fff; display:none; flex-direction:column; align-items:center; justify-content:center; padding:15px; text-align:center; z-index:10; font-family:'Outfit', sans-serif; font-size:12px;">
+      <span style="font-size:24px; margin-bottom:8px;">⚠️</span>
+      <p style="margin:0 0 8px 0; font-weight:600; color:#ff416c;">Playback Error</p>
+      <p class="error-detail" style="margin:0 0 12px 0; opacity:0.8; font-size:11px; line-height:1.4;"></p>
+      <a href="https://drive.google.com/file/d/${id}/view" target="_blank" style="padding:6px 12px; background:#ff416c; color:#fff; border-radius:4px; text-decoration:none; font-weight:500; font-size:10px;">Open in Drive</a>
+    </div>
+    <style>
+      @keyframes spin-loader {
+        0% { transform: translate(-50%,-50%) rotate(0deg); }
+        100% { transform: translate(-50%,-50%) rotate(360deg); }
+      }
+    </style>
   `;
+
+  const video = card.querySelector('video');
+  const loader = card.querySelector('.video-loader');
+  const errorEl = card.querySelector('.video-error-msg');
+  const detailEl = card.querySelector('.error-detail');
+
+  if (video) {
+    // Attempt playback programmatically
+    const playPromise = video.play();
+    if (playPromise !== undefined) {
+      playPromise.catch(err => {
+        console.warn("Autoplay blocked, waiting for user click:", err);
+      });
+    }
+
+    // Hide loader once the video starts playing
+    video.onplaying = function() {
+      if (loader) loader.style.display = 'none';
+    };
+
+    // Handle playback errors and show user-friendly message
+    video.onerror = function() {
+      if (loader) loader.style.display = 'none';
+      const err = video.error;
+      let msg = "Could not load video source.";
+      if (err) {
+        switch (err.code) {
+          case err.MEDIA_ERR_ABORTED:
+            msg = "Playback aborted by user.";
+            break;
+          case err.MEDIA_ERR_NETWORK:
+            msg = "Network connection failed.";
+            break;
+          case err.MEDIA_ERR_DECODE:
+            msg = "Video corrupt or unsupported format.";
+            break;
+          case err.MEDIA_ERR_SRC_NOT_SUPPORTED:
+            msg = "Video format/source is not supported by your browser.";
+            break;
+        }
+      }
+      if (detailEl) detailEl.textContent = msg;
+      if (errorEl) errorEl.style.display = 'flex';
+    };
+  }
 };
 
 function resetCard(card) {
