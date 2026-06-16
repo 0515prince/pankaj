@@ -354,7 +354,28 @@ section{position:relative;z-index:1}
 @media(max-width:768px){
   .nav-links,.nav-cta{display:none}
   .hamburger{display:flex}
-  .nav-links.open{display:flex;flex-direction:column;position:fixed;top:70px;left:0;right:0;background:rgba(5,5,8,0.98);backdrop-filter:blur(20px);padding:24px;gap:8px;border-bottom:1px solid var(--glass-border)}
+  .nav-links.open{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    position:fixed;
+    top:70px;
+    left:0;
+    right:0;
+    background:rgba(5,5,8,0.98);
+    backdrop-filter:blur(20px);
+    padding:32px 24px;
+    gap:16px;
+    border-bottom:1px solid var(--glass-border);
+    box-shadow:0 10px 40px rgba(0,0,0,0.8);
+    animation:menuFadeIn 0.3s ease forwards;
+  }
+  .nav-links.open a{
+    font-size:1.1rem;
+    padding:10px 24px;
+    width:100%;
+    text-align:center;
+  }
   
   /* Stacking hero vertically on mobile and centering text */
   .hero{flex-direction:column-reverse;justify-content:center;text-align:center;padding:120px 20px 60px;min-height:auto;gap:40px}
@@ -394,4 +415,25 @@ section{position:relative;z-index:1}
   .hero-stats{flex-direction:column;gap:16px}
   .stat-divider{width:60px;height:1px}
   .profile-ring-outer{width:180px;height:180px}
+  
+  /* Segmented control layout for Drive tabs on mobile */
+  .drive-tabs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto 24px;
+  }
+  .drive-tab {
+    padding: 10px 8px;
+    font-size: 0.82rem;
+    text-align: center;
+    white-space: nowrap;
+  }
+}
+
+@keyframes menuFadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
