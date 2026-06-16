@@ -118,27 +118,50 @@ window.openVideo = function(id, title) {
   }
 
   if (modalVid) {
-    let sourcesHtml = '';
     if (id.startsWith('http://') || id.startsWith('https://')) {
-      sourcesHtml = `<source src="${id}" type="video/mp4">`;
-    } else {
-      sourcesHtml = `
-        <source src="videos/${id}.mp4" type="video/mp4">
-        <source src="https://docs.google.com/uc?export=download&id=${id}" type="video/mp4">
+      // Direct video URL (from Blogger, Cloudinary, etc.): play cleanly using native HTML5 player
+      modalVid.innerHTML = `
+        <video 
+          controls
+          autoplay
+          playsinline
+          style="width:100%; height:100%; object-fit:contain; background:#000; border:none; display:block;"
+        >
+          <source src="${id}" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
       `;
+    } else {
+      // Local video file (hosted on Vercel): play using native player
+      const localUrl = `videos/${id}.mp4`;
+      modalVid.innerHTML = `
+        <video 
+          id="modalVideoPlayer"
+          controls
+          autoplay
+          playsinline
+          style="width:100%; height:100%; object-fit:contain; background:#000; border:none; display:block;"
+        >
+          <source src="${localUrl}" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      `;
+      
+      // Fallback: If local video fails to load (404/not uploaded), replace with Google Drive iframe player
+      const videoEl = document.getElementById('modalVideoPlayer');
+      if (videoEl) {
+        videoEl.addEventListener('error', function() {
+          modalVid.innerHTML = `
+            <iframe 
+              src="https://drive.google.com/file/d/${id}/preview" 
+              allow="autoplay;fullscreen"
+              allowfullscreen
+              style="width:100%; height:100%; border:none; background:#000; display:block;"
+            ></iframe>
+          `;
+        }, true);
+      }
     }
-
-    modalVid.innerHTML = `
-      <video 
-        controls
-        autoplay
-        playsinline
-        style="width:100%; height:100%; object-fit:contain; background:#000; border:none; display:block;"
-      >
-        ${sourcesHtml}
-        Your browser does not support the video tag.
-      </video>
-    `;
   }
   if (modal) modal.classList.add('active');
   document.body.style.overflow = 'hidden';
