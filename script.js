@@ -151,13 +151,21 @@ window.openVideo = function(id, title) {
       const videoEl = document.getElementById('modalVideoPlayer');
       if (videoEl) {
         videoEl.addEventListener('error', function() {
+          const containerWidth = wrapper.clientWidth || 450;
+          // Desktop base dimensions to force desktop UI inside iframe
+          const baseW = isLandscape ? 1920 : 1080;
+          const baseH = isLandscape ? 1080 : 1920;
+          const scale = containerWidth / baseW;
+          
           modalVid.innerHTML = `
-            <iframe 
-              src="https://drive.google.com/file/d/${id}/preview" 
-              allow="autoplay;fullscreen"
-              allowfullscreen
-              style="width:100%; height:100%; border:none; background:#000; display:block;"
-            ></iframe>
+            <div style="width: ${baseW}px; height: ${baseH}px; transform: scale(${scale}); transform-origin: top left; overflow: hidden; background: #000; position: absolute; top: 0; left: 0; pointer-events: auto;">
+              <iframe 
+                src="https://drive.google.com/file/d/${id}/preview" 
+                allow="autoplay;fullscreen"
+                allowfullscreen
+                style="width:100%; height:100%; border:none; background:#000; display:block;"
+              ></iframe>
+            </div>
           `;
         }, true);
       }
