@@ -99,6 +99,24 @@ const modalVid   = document.getElementById('modalVideoWrapper');
 
 window.openVideo = function(id, title) {
   if (modalTitle) modalTitle.textContent = title;
+
+  const videoData = PORTFOLIO_VIDEOS.find(v => v.id === id);
+  const isLandscape = videoData && videoData.aspect === '16/9';
+  
+  const container = document.querySelector('.modal-container');
+  const wrapper = document.querySelector('.modal-video-wrapper');
+  
+  if (container && wrapper) {
+    if (isLandscape) {
+      container.style.maxWidth = '1200px';
+      wrapper.style.aspectRatio = '16/9';
+    } else {
+      // Default to vertical (9/16) aspect ratio for mobile reels/shorts
+      container.style.maxWidth = '450px';
+      wrapper.style.aspectRatio = '9/16';
+    }
+  }
+
   if (modalVid) {
     modalVid.innerHTML = `
       <iframe 
