@@ -108,15 +108,46 @@ window.playDirectly = function(card, id) {
   card.classList.add('playing');
   currentlyPlayingCard = card;
 
-  // Replace card HTML with Google Drive preview iframe player
-  card.innerHTML = `
-    <iframe 
-      src="https://drive.google.com/file/d/${id}/preview" 
-      allow="autoplay;fullscreen"
-      allowfullscreen
-      style="width:100%; height:100%; border:none; display:block; background:#000;"
-    ></iframe>
-  `;
+  const localUrl = `videos/${id}.mp4`;
+
+  // Check if the video file exists locally on the server (Vercel/Localhost)
+  fetch(localUrl, { method: 'HEAD' })
+    .then(resp => {
+      if (resp.ok) {
+        // Play using native HTML5 video player (plays inline, full card size, contain mode to show full video)
+        card.innerHTML = `
+          <video 
+            src="${localUrl}" 
+            autoplay 
+            controls 
+            playsinline 
+            webkit-playsinline
+            style="width:100%; height:100%; border:none; display:block; background:#000; object-fit:contain;"
+          ></video>
+        `;
+      } else {
+        // Fallback to Google Drive preview iframe if not uploaded
+        card.innerHTML = `
+          <iframe 
+            src="https://drive.google.com/file/d/${id}/preview" 
+            allow="autoplay;fullscreen"
+            allowfullscreen
+            style="width:100%; height:100%; border:none; display:block; background:#000;"
+          ></iframe>
+        `;
+      }
+    })
+    .catch(() => {
+      // Fallback on error
+      card.innerHTML = `
+        <iframe 
+          src="https://drive.google.com/file/d/${id}/preview" 
+          allow="autoplay;fullscreen"
+          allowfullscreen
+          style="width:100%; height:100%; border:none; display:block; background:#000;"
+        ></iframe>
+      `;
+    });
 };
 
 function resetCard(card) {
