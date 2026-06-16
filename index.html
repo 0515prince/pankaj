@@ -347,6 +347,19 @@
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 15l-6-6-6 6"/></svg>
   </button>
 
+  <!-- VIDEO MODAL -->
+  <div class="modal-overlay" id="videoModal" onclick="closeModal(event)">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3 id="modalTitle">Video Preview</h3>
+        <button class="modal-close" onclick="_closeModal()" id="modal-close-btn">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="modal-video-wrapper" id="modalVideoWrapper"></div>
+    </div>
+  </div>
+
   <script src="script.js"></script>
 </body>
 </html>

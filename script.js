@@ -92,82 +92,41 @@ function spawnParticles() {
 }
 spawnParticles();
 
-// ===== DIRECT INLINE VIDEO PLAYER =====
-let currentlyPlayingCard = null;
+// ===== VIDEO MODAL =====
+const modal      = document.getElementById('videoModal');
+const modalTitle = document.getElementById('modalTitle');
+const modalVid   = document.getElementById('modalVideoWrapper');
 
-window.playDirectly = function(card, id) {
-  // If this card is already playing, do nothing
-  if (card.classList.contains('playing')) return;
-
-  // Stop any other currently playing video card
-  if (currentlyPlayingCard && currentlyPlayingCard !== card) {
-    resetCard(currentlyPlayingCard);
+window.openVideo = function(id, title) {
+  if (modalTitle) modalTitle.textContent = title;
+  if (modalVid) {
+    modalVid.innerHTML = `
+      <iframe 
+        src="https://drive.google.com/file/d/${id}/preview" 
+        allow="autoplay;fullscreen"
+        allowfullscreen
+        style="width:100%; height:100%; border:none; background:#000;"
+      ></iframe>
+    `;
   }
-
-  // Set card status to playing
-  card.classList.add('playing');
-  currentlyPlayingCard = card;
-
-  const localUrl = `videos/${id}.mp4`;
-
-  // Check if the video file exists locally on the server (Vercel/Localhost)
-  fetch(localUrl, { method: 'HEAD' })
-    .then(resp => {
-      if (resp.ok) {
-        // Play using native HTML5 video player (plays inline, full card size, contain mode to show full video)
-        card.innerHTML = `
-          <video 
-            src="${localUrl}" 
-            autoplay 
-            controls 
-            playsinline 
-            webkit-playsinline
-            style="width:100%; height:100%; border:none; display:block; background:#000; object-fit:contain;"
-          ></video>
-        `;
-      } else {
-        // Fallback to Google Drive preview iframe if not uploaded
-        card.innerHTML = `
-          <iframe 
-            src="https://drive.google.com/file/d/${id}/preview" 
-            allow="autoplay;fullscreen"
-            allowfullscreen
-            style="width:100%; height:100%; border:none; display:block; background:#000;"
-          ></iframe>
-        `;
-      }
-    })
-    .catch(() => {
-      // Fallback on error
-      card.innerHTML = `
-        <iframe 
-          src="https://drive.google.com/file/d/${id}/preview" 
-          allow="autoplay;fullscreen"
-          allowfullscreen
-          style="width:100%; height:100%; border:none; display:block; background:#000;"
-        ></iframe>
-      `;
-    });
+  if (modal) modal.classList.add('active');
+  document.body.style.overflow = 'hidden';
 };
 
-function resetCard(card) {
-  const id = card.dataset.videoid;
-  const title = card.dataset.title;
-  card.classList.remove('playing');
-  const thumbUrl = `https://lh3.googleusercontent.com/d/${id}`;
+window.closeModal = function(e) {
+  if (e && e.target !== modal) return;
+  window._closeModal();
+};
 
-  card.innerHTML = `
-    <img src="${thumbUrl}" alt="${title}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=500&q=80'" />
-    <div class="carousel-overlay">
-      <div class="carousel-play-btn">
-        <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-      </div>
-      <div class="carousel-meta">
-        <h4>${title}</h4>
-      </div>
-    </div>
-  `;
-}
+window._closeModal = function() {
+  if (modal) modal.classList.remove('active');
+  setTimeout(() => { if (modalVid) modalVid.innerHTML = ''; }, 300);
+  document.body.style.overflow = '';
+};
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') window._closeModal();
+});
 
 // ===== PORTFOLIO VIDEO DATABASE =====
 const PORTFOLIO_VIDEOS = [
@@ -243,7 +202,7 @@ function renderCarousels() {
           ${videos.map(video => {
             const thumbUrl = `https://lh3.googleusercontent.com/d/${video.id}`;
             return `
-              <div class="carousel-card" data-videoid="${video.id}" data-title="${video.title}" onclick="playDirectly(this, '${video.id}')">
+              <div class="carousel-card" data-videoid="${video.id}" data-title="${video.title}" onclick="openVideo('${video.id}', '${video.title.replace(/'/g, "\\'")}')">
                 <img src="${thumbUrl}" alt="${video.title}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=500&q=80'" />
                 <div class="carousel-overlay">
                   <div class="carousel-play-btn">
