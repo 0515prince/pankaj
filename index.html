@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pankaj Sharma | Creative Video Editor & Storyteller</title>
+  <meta name="description" content="Pankaj Sharma – Passionate video editor with 3+ years of experience in cinematic storytelling, Premiere Pro, After Effects, and motion graphics. Based in Surat, India." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="bg-particles" id="particles"></div>
+
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <div class="nav-logo">
+        <span class="logo-icon">▶</span>
+        <span class="logo-text">PANKAJ<span class="logo-accent">.</span></span>
+      </div>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home"    class="nav-link active" id="nav-home">Home</a></li>
+        <li><a href="#work"    class="nav-link" id="nav-work">Work</a></li>
+        <li><a href="#about"   class="nav-link" id="nav-about">About</a></li>
+        <li><a href="#skills"  class="nav-link" id="nav-skills">Skills</a></li>
+        <li><a href="#contact" class="nav-link" id="nav-contact">Contact</a></li>
+      </ul>
+      <a href="#contact" class="nav-cta" id="nav-hire-btn">Hire Me</a>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero-bg-video"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        Available for Freelance Work
+      </div>
+      <h1 class="hero-title">
+        <span class="title-line">Pankaj</span>
+        <span class="title-line gradient-text">Sharma</span>
+      </h1>
+      <div class="hero-roles">
+        <span class="role-text" id="roleText">Creative Video Editor</span>
+      </div>
+      <p class="hero-desc">
+        Transforming raw footage into <strong>cinematic masterpieces</strong>.<br/>
+        3+ years of visual storytelling magic.
+      </p>
+      <div class="hero-stats">
+        <div class="stat-item">
+          <span class="stat-number" id="stat1">3+</span>
+          <span class="stat-label">Years Exp.</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-number" id="stat2">50+</span>
+          <span class="stat-label">Projects Done</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-number" id="stat3">100%</span>
+          <span class="stat-label">Client Happy</span>
+        </div>
+      </div>
+      <div class="hero-actions">
+        <a href="#work" class="btn-primary" id="view-work-btn">
+          <span>View My Work</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="https://drive.google.com/drive/folders/1H2t6TNcZ1uzmeRY9HBBypvZKHDLA0qAj" target="_blank" class="btn-secondary" id="view-drive-btn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          <span>Video Work Folder</span>
+        </a>
+      </div>
+    </div>
+    <div class="hero-scroll-indicator">
+      <div class="scroll-mouse"><div class="scroll-wheel"></div></div>
+      <span>Scroll Down</span>
+    </div>
+    <div class="hero-profile-float">
+      <div class="profile-ring-outer">
+        <div class="profile-ring-inner">
+          <img src="https://i.postimg.cc/R0RJnp4f/285316180-1126326911544202-3109305292639068427-n.jpg" alt="Pankaj Sharma" class="profile-img" />
+        </div>
+      </div>
+      <div class="profile-tools">
+        <div class="tool-badge" style="--delay:0s">Pr</div>
+        <div class="tool-badge" style="--delay:0.3s">Ae</div>
+        <div class="tool-badge" style="--delay:0.6s">Ps</div>
+        <div class="tool-badge" style="--delay:0.9s">Bl</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURED WORK — GOOGLE DRIVE -->
+  <section class="work-section" id="work">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Portfolio</span>
+        <h2 class="section-title">Featured <span class="gradient-text">Projects</span></h2>
+      </div>
+
+      <div class="drive-tabs">
+        <button class="drive-tab active" id="dtab1" onclick="switchFolder('1H2t6TNcZ1uzmeRY9HBBypvZKHDLA0qAj', this)">📁 Video Work</button>
+        <button class="drive-tab" id="dtab2" onclick="switchFolder('1oEYKDAKMgMitKGQprlbydv361QCDfmCX', this)">📂 Full Portfolio</button>
+      </div>
+
+      <div class="drive-embed-box">
+        <div class="drive-loader" id="driveLoader">
+          <div class="drive-spinner"></div>
+          <p>Google Drive se videos load ho rahi hain...</p>
+        </div>
+        <iframe
+          id="driveFrame"
+          src="https://drive.google.com/embeddedfolderview?id=1H2t6TNcZ1uzmeRY9HBBypvZKHDLA0qAj#grid"
+          title="Google Drive Video Gallery"
+          onload="driveLoaded()"
+        ></iframe>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ABOUT -->
+  <section class="about-section" id="about">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-visual">
+          <div class="about-img-wrapper">
+            <div class="about-img-bg"></div>
+            <img src="https://i.postimg.cc/R0RJnp4f/285316180-1126326911544202-3109305292639068427-n.jpg" alt="Pankaj Sharma" class="about-img" />
+            <div class="experience-badge">
+              <span class="exp-number">3+</span>
+              <span class="exp-label">Years of<br/>Experience</span>
+            </div>
+          </div>
+          <div class="about-social-links">
+            <a href="mailto:pankajsharma112020@gmail.com" class="social-btn" title="Email">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,12 2,6"/></svg>
+            </a>
+            <a href="https://storytellerbringing.blogspot.com" target="_blank" class="social-btn" title="Blog">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+            </a>
+            <a href="tel:+919426158319" class="social-btn" title="Phone">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.63A2 2 0 012 .18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="about-content">
+          <span class="section-tag">About Me</span>
+          <h2 class="section-title">The <span class="gradient-text">Storyteller</span><br/>Behind the Screen</h2>
+          <p class="about-text">I'm <strong>Pankaj Sharma</strong>, a passionate and creative video editor based in <strong>Surat, Gujarat</strong>. With 3+ years of hands-on experience, I specialize in transforming raw footage into compelling visual stories that resonate with audiences.</p>
+          <p class="about-text">Currently working at <strong>Ajmera Fashion</strong> as a Video Editor since January 2024, I craft promotional videos for social media and marketing campaigns — from fashion lookbooks to client testimonials and event highlights.</p>
+          <div class="about-highlights">
+            <div class="highlight-item">
+              <div class="highlight-icon">🎬</div>
+              <div class="highlight-text">
+                <strong>Ajmera Fashion</strong>
+                <span>Video Editor · Jan 2024 – Present</span>
+              </div>
+            </div>
+            <div class="highlight-item">
+              <div class="highlight-icon">🎓</div>
+              <div class="highlight-text">
+                <strong>B.Com – Ambaba Commerce College</strong>
+                <span>GSEB 12th (2021) · BSEB 10th (2019)</span>
+              </div>
+            </div>
+            <div class="highlight-item">
+              <div class="highlight-icon">📍</div>
+              <div class="highlight-text">
+                <strong>Surat, Gujarat, India</strong>
+                <span>Sargam Complex, Chalthan, Kadodara – 394305</span>
+              </div>
+            </div>
+          </div>
+          <a href="mailto:pankajsharma112020@gmail.com" class="btn-primary">
+            <span>Let's Work Together</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section class="skills-section" id="skills">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Expertise</span>
+        <h2 class="section-title">Tools & <span class="gradient-text">Skills</span></h2>
+        <p class="section-desc">Proficient in industry-standard tools to deliver professional, high-quality video content.</p>
+      </div>
+      <div class="skills-grid">
+
+        <div class="skill-card" id="skill-premiere">
+          <div class="skill-icon" style="background:linear-gradient(135deg,#9999FF,#6666FF)"><span>Pr</span></div>
+          <div class="skill-info">
+            <h3>Adobe Premiere Pro</h3>
+            <p>Professional video editing, timeline management, seamless transitions</p>
+            <div class="skill-bar"><div class="skill-fill" style="--w:95%"></div></div>
+            <span class="skill-pct">Expert</span>
+          </div>
+        </div>
+
+        <div class="skill-card" id="skill-ae">
+          <div class="skill-icon" style="background:linear-gradient(135deg,#9999FF,#1D0040)"><span>Ae</span></div>
+          <div class="skill-info">
+            <h3>After Effects</h3>
+            <p>Motion graphics, VFX compositing, cinematic effects & animations</p>
+            <div class="skill-bar"><div class="skill-fill" style="--w:85%"></div></div>
+            <span class="skill-pct">Advanced</span>
+          </div>
+        </div>
+
+        <div class="skill-card" id="skill-ps">
+          <div class="skill-icon" style="background:linear-gradient(135deg,#31A8FF,#001E36)"><span>Ps</span></div>
+          <div class="skill-info">
+            <h3>Adobe Photoshop</h3>
+            <p>Graphics creation, thumbnail design, visual assets & retouching</p>
+            <div class="skill-bar"><div class="skill-fill" style="--w:75%"></div></div>
+            <span class="skill-pct">Intermediate</span>
+          </div>
+        </div>
+
+        <div class="skill-card" id="skill-ai">
+          <div class="skill-icon" style="background:linear-gradient(135deg,#FF9A00,#FF4000)"><span>Ai</span></div>
+          <div class="skill-info">
+            <h3>Adobe Illustrator</h3>
+            <p>Vector graphics, logos, infographics & creative artwork</p>
+            <div class="skill-bar"><div class="skill-fill" style="--w:65%"></div></div>
+            <span class="skill-pct">Intermediate</span>
+          </div>
+        </div>
+
+        <div class="skill-card" id="skill-bl">
+          <div class="skill-icon" style="background:linear-gradient(135deg,#EA7600,#265787)"><span>Bl</span></div>
+          <div class="skill-info">
+            <h3>Blender 3D</h3>
+            <p>3D modeling, animation & rendering for creative projects</p>
+            <div class="skill-bar"><div class="skill-fill" style="--w:55%"></div></div>
+            <span class="skill-pct">Learning</span>
+          </div>
+        </div>
+
+        <div class="skill-card" id="skill-story">
+          <div class="skill-icon" style="background:linear-gradient(135deg,#FF416C,#FF4B2B)"><span>🎬</span></div>
+          <div class="skill-info">
+            <h3>Visual Storytelling</h3>
+            <p>Narrative editing, emotional pacing & cinematic composition</p>
+            <div class="skill-bar"><div class="skill-fill" style="--w:92%"></div></div>
+            <span class="skill-pct">Expert</span>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="services-row">
+        <div class="service-card"><div class="service-icon">🎨</div><h4>Color Grading</h4><p>Professional color correction & cinematic LUTs</p></div>
+        <div class="service-card"><div class="service-icon">⚡</div><h4>Motion Graphics</h4><p>Dynamic titles, lower thirds & animated elements</p></div>
+        <div class="service-card"><div class="service-icon">🎵</div><h4>Sound Design</h4><p>Audio mixing, SFX & music synchronization</p></div>
+        <div class="service-card"><div class="service-icon">📱</div><h4>Social Media Content</h4><p>Reels, Shorts & platform-optimized videos</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact-section" id="contact">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Let's Connect</span>
+        <h2 class="section-title">Get In <span class="gradient-text">Touch</span></h2>
+        <p class="section-desc">Ready to create something amazing? Let's talk about your next project.</p>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-info">
+          <a href="mailto:pankajsharma112020@gmail.com" class="contact-card" id="c-email">
+            <div class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,12 2,6"/></svg></div>
+            <div><h4>Email</h4><span>pankajsharma112020@gmail.com</span></div>
+          </a>
+          <a href="tel:+919426158319" class="contact-card" id="c-phone">
+            <div class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.63A2 2 0 012 .18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z"/></svg></div>
+            <div><h4>Phone</h4><span>+91 9426158319</span></div>
+          </a>
+          <div class="contact-card" id="c-loc">
+            <div class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+            <div><h4>Location</h4><span>Surat, Gujarat, India – 394305</span></div>
+          </div>
+          <a href="https://storytellerbringing.blogspot.com" target="_blank" class="contact-card" id="c-blog">
+            <div class="contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg></div>
+            <div><h4>Blog / Portfolio</h4><span>storytellerbringing.blogspot.com</span></div>
+          </a>
+        </div>
+
+        <div class="contact-form-wrapper">
+          <form class="contact-form" id="contactForm">
+            <div class="form-group">
+              <label for="name">Your Name</label>
+              <input type="text" id="name" name="name" placeholder="Enter your name" required />
+            </div>
+            <div class="form-group">
+              <label for="email">Your Email</label>
+              <input type="email" id="email" name="email" placeholder="Enter your email" required />
+            </div>
+            <div class="form-group">
+              <label for="project">Project Type</label>
+              <select id="project" name="project">
+                <option value="">Select project type</option>
+                <option value="social">Social Media Video</option>
+                <option value="fashion">Fashion / Lookbook</option>
+                <option value="event">Event Highlight</option>
+                <option value="promo">Brand Promo</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="message">Your Message</label>
+              <textarea id="message" name="message" rows="4" placeholder="Tell me about your project..."></textarea>
+            </div>
+            <button type="submit" class="btn-primary full-width" id="contact-submit-btn">
+              <span>Send Message</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <div class="nav-logo"><span class="logo-icon">▶</span><span class="logo-text">PANKAJ<span class="logo-accent">.</span></span></div>
+          <p>Creative Video Editor & Storyteller<br/>Based in Surat, Gujarat, India</p>
+        </div>
+        <div class="footer-links">
+          <a href="#home">Home</a><a href="#work">Work</a><a href="#about">About</a><a href="#contact">Contact</a>
+        </div>
+        <div class="footer-contact">
+          <a href="mailto:pankajsharma112020@gmail.com">pankajsharma112020@gmail.com</a>
+          <a href="tel:+919426158319">+91 9426158319</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 Pankaj Sharma.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- VIDEO MODAL -->
+  <div class="modal-overlay" id="videoModal" onclick="closeModal(event)">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3 id="modalTitle">Video Preview</h3>
+        <button class="modal-close" onclick="closeModal()" id="modal-close-btn">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="modal-video-wrapper" id="modalVideoWrapper"></div>
+      <a id="modalYtLink" href="#" target="_blank" class="yt-fallback-btn">▶ YouTube pe Kholo</a>
+    </div>
+  </div>
+
+  <!-- Back to Top -->
+  <button class="back-to-top" id="backToTop" aria-label="Back to top">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 15l-6-6-6 6"/></svg>
+  </button>
+
+  <script src="script.js"></script>
+</body>
+</html>
