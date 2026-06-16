@@ -92,39 +92,52 @@ function spawnParticles() {
 }
 spawnParticles();
 
-// ===== VIDEO MODAL =====
-const modal      = document.getElementById('videoModal');
-const modalTitle = document.getElementById('modalTitle');
-const modalVid   = document.getElementById('modalVideoWrapper');
-const ytBtn      = document.getElementById('modalYtLink');
+// ===== DIRECT INLINE VIDEO PLAYER =====
+let currentlyPlayingCard = null;
 
-function openVideo(id, title) {
-  modalTitle.textContent = title;
-  if (ytBtn) ytBtn.style.display = 'none'; // Hide YouTube fallback button
-  modalVid.innerHTML = `
-    <iframe
-      src="https://drive.google.com/file/d/${id}/preview"
-      allow="autoplay;fullscreen"
-      allowfullscreen title="${title}"
-      style="width:100%;height:100%;border:none;background:#000;"
-    ></iframe>`;
-  modal.classList.add('active');
-  document.body.style.overflow = 'hidden';
+window.playDirectly = function(card, id) {
+  // If this card is already playing, do nothing
+  if (card.classList.contains('playing')) return;
+
+  // Stop any other currently playing video card
+  if (currentlyPlayingCard && currentlyPlayingCard !== card) {
+    resetCard(currentlyPlayingCard);
+  }
+
+  // Set card status to playing
+  card.classList.add('playing');
+  currentlyPlayingCard = card;
+
+  // Replace card HTML with native HTML5 video player
+  card.innerHTML = `
+    <video 
+      src="https://drive.google.com/uc?export=download&id=${id}" 
+      controls 
+      autoplay 
+      playsinline 
+      style="width:100%; height:100%; object-fit:cover; display:block; background:#000;"
+    ></video>
+  `;
+};
+
+function resetCard(card) {
+  const id = card.dataset.videoid;
+  const title = card.dataset.title;
+  card.classList.remove('playing');
+  const thumbUrl = `https://lh3.googleusercontent.com/d/${id}`;
+
+  card.innerHTML = `
+    <img src="${thumbUrl}" alt="${title}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=500&q=80'" />
+    <div class="carousel-overlay">
+      <div class="carousel-play-btn">
+        <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+      </div>
+      <div class="carousel-meta">
+        <h4>${title}</h4>
+      </div>
+    </div>
+  `;
 }
-
-function closeModal(e) {
-  if (e && e.target !== modal) return;
-  _closeModal();
-}
-
-function _closeModal() {
-  modal.classList.remove('active');
-  setTimeout(() => { modalVid.innerHTML = ''; }, 300);
-  document.body.style.overflow = '';
-}
-
-document.getElementById('modal-close-btn').addEventListener('click', _closeModal);
-document.addEventListener('keydown', e => { if (e.key === 'Escape') _closeModal(); });
 
 // ===== PORTFOLIO VIDEO DATABASE =====
 const PORTFOLIO_VIDEOS = [
@@ -200,7 +213,7 @@ function renderCarousels() {
           ${videos.map(video => {
             const thumbUrl = `https://lh3.googleusercontent.com/d/${video.id}`;
             return `
-              <div class="carousel-card" onclick="openVideo('${video.id}', '${video.title}')">
+              <div class="carousel-card" data-videoid="${video.id}" data-title="${video.title}" onclick="playDirectly(this, '${video.id}')">
                 <img src="${thumbUrl}" alt="${video.title}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=500&q=80'" />
                 <div class="carousel-overlay">
                   <div class="carousel-play-btn">
