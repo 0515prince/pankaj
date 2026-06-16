@@ -100,13 +100,13 @@ const ytBtn      = document.getElementById('modalYtLink');
 
 function openVideo(id, title) {
   modalTitle.textContent = title;
-  ytBtn.href = `https://www.youtube.com/watch?v=${id}`;
+  if (ytBtn) ytBtn.style.display = 'none'; // Hide YouTube fallback button
   modalVid.innerHTML = `
     <iframe
-      src="https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0&modestbranding=1"
-      allow="autoplay;fullscreen;accelerometer;clipboard-write;encrypted-media;gyroscope;picture-in-picture"
+      src="https://drive.google.com/file/d/${id}/preview"
+      allow="autoplay;fullscreen"
       allowfullscreen title="${title}"
-      style="width:100%;height:100%;border:none;"
+      style="width:100%;height:100%;border:none;background:#000;"
     ></iframe>`;
   modal.classList.add('active');
   document.body.style.overflow = 'hidden';
@@ -126,36 +126,115 @@ function _closeModal() {
 document.getElementById('modal-close-btn').addEventListener('click', _closeModal);
 document.addEventListener('keydown', e => { if (e.key === 'Escape') _closeModal(); });
 
-// ===== FILTER TABS =====
-document.querySelectorAll('.filter-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    const f = btn.dataset.filter;
-    document.querySelectorAll('.video-card').forEach((card, i) => {
-      const show = f === 'all' || card.dataset.category === f;
-      card.classList.toggle('hidden', !show);
-      if (show) card.style.animation = `fadeInUp 0.4s ease ${i * 0.04}s both`;
-    });
+// ===== PORTFOLIO VIDEO DATABASE =====
+const PORTFOLIO_VIDEOS = [
+  // BADIYA BRAND WORK
+  { id: '1_3DAE744l1ZqHhSCcOtnsou1kmpVrvAl', category: 'brand', title: 'Brand Promo V1', desc: 'Premium brand video edit' },
+  { id: '1bjr2hDcPGOZRhqOpc9FPY-SWAjHVI1Rq', category: 'brand', title: 'Brand Promo V2', desc: 'Modern transitions & lookbook' },
+  { id: '1M_yFw8KhkIn7yacHTXVe6doQGI0ljnZJ', category: 'brand', title: 'Brand Promo V3', desc: 'Professional commercial edit' },
+  { id: '1HWIGz3sCHjRa4Ti2Q-wba9imjdzJR-1l', category: 'brand', title: 'Brand Promo V4', desc: 'High-energy brand reel' },
+  { id: '1sqcOci0Cs7OvM0yAg7n8ALSTLjyFJ_bl', category: 'brand', title: 'Brand Promo V5', desc: 'Fashion brand lookbook' },
+  { id: '1G3AC0PgySeughPbzrYEcNNJC3ZktKbRr', category: 'brand', title: 'Brand Promo V6', desc: 'Cinematic promotional reel' },
+  { id: '1mzeCcNeueGsJx_B01wb-7E-CQjwbrF1Z', category: 'brand', title: 'Brand Promo V7', desc: 'Stylish transitions promo' },
+  { id: '1EefL6kI_bywA3qZoIgSlBae9M8KkKdMv', category: 'brand', title: 'Brand Promo V8', desc: 'Latest commercial video' },
+
+  // CLIENT WORK
+  { id: '1NfcoJYMvlSdBZ_JGv0_XyRe2YvF7_G-D', category: 'client', title: 'Client Project V1', desc: 'Promotional edit for client' },
+  { id: '11E471Et9MMZOv8bOHBHgiaEXu5TbjsZD', category: 'client', title: 'Client Project V2', desc: 'Social media campaign edit' },
+  { id: '19j_lHY2Tw8hhy-mmawPqf0J_cjYU2vAh', category: 'client', title: 'Client Project V4', desc: 'Product advertising campaign' },
+  { id: '1hIJ4VjuQzRkmFSaefmCjPiN_0I0cqsuw', category: 'client', title: 'Client Project V5', desc: 'High conversion social ad' },
+  { id: '1y4RvunWWESAtmcK2yBPUS4c9NWyQDcmy', category: 'client', title: 'Client Project V6', desc: 'Creative reels editing' },
+  { id: '1blCyjTNf99AcIy_ZPpHrGQDLJGS9s_ru', category: 'client', title: 'Client Project V7', desc: 'Event highlight storytelling' },
+  { id: '1LJNZFmfhIjQ3D4ATdZ0DalKfMiuDbxO_', category: 'client', title: 'Client Project V8', desc: 'Brand narrative project' },
+  { id: '1iXVuWD5qKFlKlG00VHnbdZt3ks6oeZH4', category: 'client', title: 'Client Project V9', desc: 'Dynamic commercial edit' },
+  { id: '18o7GCOYbot4bgyBCp6KqzL_Kb-zjWhL1', category: 'client', title: 'Client Project V10', desc: 'Aesthetic fashion lookbook' },
+
+  // INSTAGRAM CLIENT WORK
+  { id: '11wC7SdAS0WIr8-KD8EDFK4bs3auQsWn7', category: 'instagram', title: 'Instagram Reel V1', desc: 'Viral reels editing structure' },
+  { id: '1i6x1_mR3NI-AOwV4x6e8A7ii_2gZsztu', category: 'instagram', title: 'Instagram Reel V2', desc: 'High hook-rate reel content' },
+  { id: '1R0Wtvpi2CB3Pjyww0hlpaTGiFuYEIukh', category: 'instagram', title: 'Instagram Reel V3', desc: 'Seamless transition flow' },
+  { id: '1aiKcglncUdW1rk5-Wm42RCQP31rU1rli', category: 'instagram', title: 'Instagram Reel V4', desc: 'Engagement optimized reel' },
+  { id: '1ucKScO6QOvboopw6WYS0fEmZ_zahg6jB', category: 'instagram', title: 'Instagram Reel V5', desc: 'Creative visual effects' },
+  { id: '1EXqyfTdIRkT8qXAf7k0njJUa4WXGuVRz', category: 'instagram', title: 'Instagram Reel V6', desc: 'Premium aesthetic flow' },
+
+  // PERSONAL WORK
+  { id: '19GL-J1x71608gb0-4UT-z-J0fw2RQMuw', category: 'personal', title: 'Personal Project V1', desc: 'Cinematic color grading practice' },
+  { id: '1pB4dFCrqyVb_-tGG-YS1OpST4G9L6s6K', category: 'personal', title: 'Personal Project V2', desc: 'Motion graphics experimentation' },
+  { id: '1gCtPhjUM5qN6AqRWP10Q9XuJS3nfQbGp', category: 'personal', title: 'Personal Project V3', desc: 'Sound design & pacing study' },
+  { id: '1BP3IY1xOKyiO_QzzddAxV5LFKc2ZOQDo', category: 'personal', title: 'Personal Project V4', desc: 'Creative narrative assembly' },
+  { id: '1REwBqPSaF5lsbcAXGbFXMG-YZg4WPdny', category: 'personal', title: 'Personal Project V5', desc: 'Experimental transition edit' },
+  { id: '18NGqBcmJ0HSnduyJfwSsrHtm-yCdy-FD', category: 'personal', title: 'Personal Project V6', desc: '3D assets integration clip' },
+  { id: '1DTUqP0jLMHk-3epwEj0SjCeSaM0BRBMC', category: 'personal', title: 'Personal Project V7', desc: 'Visual storytelling exercise' },
+  { id: '1JI4CULZAvAlNKSZrtCn0o6sAQVGhH4-E', category: 'personal', title: 'Personal Project V8', desc: 'Cinematic dynamic cuts' }
+];
+
+// ===== RENDER PORTFOLIO CAROUSELS =====
+const carouselsContainer = document.getElementById('portfolioCarousels');
+const CATEGORIES = [
+  { key: 'brand', title: 'Badiya Brand_work' },
+  { key: 'client', title: 'Client_work' },
+  { key: 'instagram', title: 'instragram client work' },
+  { key: 'personal', title: 'Personal work' }
+];
+
+function renderCarousels() {
+  if (!carouselsContainer) return;
+  carouselsContainer.innerHTML = '';
+
+  CATEGORIES.forEach((cat, index) => {
+    const videos = PORTFOLIO_VIDEOS.filter(video => video.category === cat.key);
+    if (videos.length === 0) return;
+
+    const section = document.createElement('div');
+    section.className = 'carousel-section';
+    section.style.animation = `fadeInUp 0.6s ease ${index * 0.15}s both`;
+
+    section.innerHTML = `
+      <h3 class="carousel-section-title">${cat.title}</h3>
+      <div class="carousel-container">
+        <button class="carousel-btn prev" onclick="scrollCarousel('${cat.key}', -1)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        
+        <div class="carousel-track" id="track-${cat.key}">
+          ${videos.map(video => {
+            const thumbUrl = `https://lh3.googleusercontent.com/d/${video.id}`;
+            return `
+              <div class="carousel-card" onclick="openVideo('${video.id}', '${video.title}')">
+                <img src="${thumbUrl}" alt="${video.title}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=500&q=80'" />
+                <div class="carousel-overlay">
+                  <div class="carousel-play-btn">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                  </div>
+                  <div class="carousel-meta">
+                    <h4>${video.title}</h4>
+                  </div>
+                </div>
+              </div>
+            `;
+          }).join('')}
+        </div>
+
+        <button class="carousel-btn next" onclick="scrollCarousel('${cat.key}', 1)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+    `;
+    carouselsContainer.appendChild(section);
   });
-});
-
-// ===== GOOGLE DRIVE SECTION =====
-function switchFolder(id, btn) {
-  document.querySelectorAll('.drive-tab').forEach(t => t.classList.remove('active'));
-  btn.classList.add('active');
-  const loader = document.getElementById('driveLoader');
-  const frame  = document.getElementById('driveFrame');
-  if (loader) { loader.style.display = 'flex'; }
-  if (frame)  { frame.style.opacity = '0'; frame.src = `https://drive.google.com/embeddedfolderview?id=${id}#grid`; }
 }
 
-function driveLoaded() {
-  const loader = document.getElementById('driveLoader');
-  const frame  = document.getElementById('driveFrame');
-  if (loader) loader.style.display = 'none';
-  if (frame)  frame.style.opacity  = '1';
-}
+// Scroll controller
+window.scrollCarousel = function(categoryKey, direction) {
+  const track = document.getElementById(`track-${categoryKey}`);
+  if (!track) return;
+  const scrollAmount = 340 * direction;
+  track.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+};
+
+// Initial run
+renderCarousels();
+
 
 // ===== SCROLL ANIMATIONS =====
 const observer = new IntersectionObserver(entries => {
