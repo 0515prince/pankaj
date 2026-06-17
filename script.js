@@ -192,53 +192,42 @@ document.addEventListener('keydown', e => {
 
 // ===== PORTFOLIO VIDEO DATABASE =====
 const PORTFOLIO_VIDEOS = [
-  // BADIYA BRAND WORK
-  { id: '1_3DAE744l1ZqHhSCcOtnsou1kmpVrvAl', category: 'brand', title: 'Brand Promo V1', desc: 'Premium brand video edit' },
-  { id: '1bjr2hDcPGOZRhqOpc9FPY-SWAjHVI1Rq', category: 'brand', title: 'Brand Promo V2', desc: 'Modern transitions & lookbook' },
-  { id: '1M_yFw8KhkIn7yacHTXVe6doQGI0ljnZJ', category: 'brand', title: 'Brand Promo V3', desc: 'Professional commercial edit' },
-  { id: '1HWIGz3sCHjRa4Ti2Q-wba9imjdzJR-1l', category: 'brand', title: 'Brand Promo V4', desc: 'High-energy brand reel' },
-  { id: '1sqcOci0Cs7OvM0yAg7n8ALSTLjyFJ_bl', category: 'brand', title: 'Brand Promo V5', desc: 'Fashion brand lookbook' },
-  { id: '1G3AC0PgySeughPbzrYEcNNJC3ZktKbRr', category: 'brand', title: 'Brand Promo V6', desc: 'Cinematic promotional reel' },
-  { id: '1mzeCcNeueGsJx_B01wb-7E-CQjwbrF1Z', category: 'brand', title: 'Brand Promo V7', desc: 'Stylish transitions promo' },
-  { id: '1EefL6kI_bywA3qZoIgSlBae9M8KkKdMv', category: 'brand', title: 'Brand Promo V8', desc: 'Latest commercial video' },
-
-  // CLIENT WORK
-  { id: '1NfcoJYMvlSdBZ_JGv0_XyRe2YvF7_G-D', category: 'client', title: 'Client Project V1', desc: 'Promotional edit for client' },
-  { id: '11E471Et9MMZOv8bOHBHgiaEXu5TbjsZD', category: 'client', title: 'Client Project V2', desc: 'Social media campaign edit' },
-  { id: '19j_lHY2Tw8hhy-mmawPqf0J_cjYU2vAh', category: 'client', title: 'Client Project V4', desc: 'Product advertising campaign' },
-  { id: '1hIJ4VjuQzRkmFSaefmCjPiN_0I0cqsuw', category: 'client', title: 'Client Project V5', desc: 'High conversion social ad' },
-  { id: '1y4RvunWWESAtmcK2yBPUS4c9NWyQDcmy', category: 'client', title: 'Client Project V6', desc: 'Creative reels editing' },
-  { id: '1blCyjTNf99AcIy_ZPpHrGQDLJGS9s_ru', category: 'client', title: 'Client Project V7', desc: 'Event highlight storytelling' },
-  { id: '1LJNZFmfhIjQ3D4ATdZ0DalKfMiuDbxO_', category: 'client', title: 'Client Project V8', desc: 'Brand narrative project' },
-  { id: '1iXVuWD5qKFlKlG00VHnbdZt3ks6oeZH4', category: 'client', title: 'Client Project V9', desc: 'Dynamic commercial edit' },
-  { id: '18o7GCOYbot4bgyBCp6KqzL_Kb-zjWhL1', category: 'client', title: 'Client Project V10', desc: 'Aesthetic fashion lookbook' },
-
-  // INSTAGRAM CLIENT WORK
-  { id: '11wC7SdAS0WIr8-KD8EDFK4bs3auQsWn7', category: 'instagram', title: 'Instagram Reel V1', desc: 'Viral reels editing structure' },
-  { id: '1i6x1_mR3NI-AOwV4x6e8A7ii_2gZsztu', category: 'instagram', title: 'Instagram Reel V2', desc: 'High hook-rate reel content' },
-  { id: '1R0Wtvpi2CB3Pjyww0hlpaTGiFuYEIukh', category: 'instagram', title: 'Instagram Reel V3', desc: 'Seamless transition flow' },
-  { id: '1aiKcglncUdW1rk5-Wm42RCQP31rU1rli', category: 'instagram', title: 'Instagram Reel V4', desc: 'Engagement optimized reel' },
-  { id: '1ucKScO6QOvboopw6WYS0fEmZ_zahg6jB', category: 'instagram', title: 'Instagram Reel V5', desc: 'Creative visual effects' },
-  { id: '1EXqyfTdIRkT8qXAf7k0njJUa4WXGuVRz', category: 'instagram', title: 'Instagram Reel V6', desc: 'Premium aesthetic flow' },
-
-  // PERSONAL WORK
-  { id: '19GL-J1x71608gb0-4UT-z-J0fw2RQMuw', category: 'personal', title: 'Personal Project V1', desc: 'Cinematic color grading practice' },
-  { id: '1pB4dFCrqyVb_-tGG-YS1OpST4G9L6s6K', category: 'personal', title: 'Personal Project V2', desc: 'Motion graphics experimentation' },
-  { id: '1gCtPhjUM5qN6AqRWP10Q9XuJS3nfQbGp', category: 'personal', title: 'Personal Project V3', desc: 'Sound design & pacing study' },
-  { id: '1BP3IY1xOKyiO_QzzddAxV5LFKc2ZOQDo', category: 'personal', title: 'Personal Project V4', desc: 'Creative narrative assembly' },
-  { id: '1REwBqPSaF5lsbcAXGbFXMG-YZg4WPdny', category: 'personal', title: 'Personal Project V5', desc: 'Experimental transition edit' },
-  { id: '18NGqBcmJ0HSnduyJfwSsrHtm-yCdy-FD', category: 'personal', title: 'Personal Project V6', desc: '3D assets integration clip' },
-  { id: '1DTUqP0jLMHk-3epwEj0SjCeSaM0BRBMC', category: 'personal', title: 'Personal Project V7', desc: 'Visual storytelling exercise' },
-  { id: '1JI4CULZAvAlNKSZrtCn0o6sAQVGhH4-E', category: 'personal', title: 'Personal Project V8', desc: 'Cinematic dynamic cuts' }
+  { id: '1x3ZOMRUtmJGvosMuemvISOk3cKg6Egd_', category: 'reel', title: '01' },
+  { id: '1MG9qeB1CZG-B9lIyO0V6RWlezn7mLlaN', category: 'reel', title: '1v ' },
+  { id: '1g8YDY8ZYnB2zF2EIVCuG9iRFaIJbsqaS', category: 'reel', title: '02' },
+  { id: '1xKzPBmV3scpijfsuU5I9AUZfn5Lrb8Wt', category: 'reel', title: 'Af' },
+  { id: '1qsgFtW6mUOgYAy86npusmV0o-ZERPYEv', category: 'reel', title: 'ajay ajmera bio' },
+  { id: '16-Uok_WRuXA7XyuZAgWjHipeF8mmPgUm', category: 'reel', title: 'ajmera' },
+  { id: '1sD5w4S1exS84FdvID1lQaT-3Uj8lMqOD', category: 'reel', title: 'astrologer demo reel 1 ' },
+  { id: '1zlt3EL6FpEDMuQTMqTcbXtOO32tv3DNW', category: 'reel', title: 'food processing  OEM_render F-1' },
+  { id: '16Br_tEcNRzngFLkRZ5JI5kNpHoj2X8v6', category: 'reel', title: 'monarch visa podcast reel' },
+  { id: '17kIhussRngODb68FBDhEWmQz01uFrdLa', category: 'reel', title: 'monarch visa reel 1 final 2' },
+  { id: '141tvR0jqvEoYvj-IusqjerQGTANB7435', category: 'reel', title: 'Primerpolytech reel 1' },
+  { id: '13kDflRylM2_ucARB49-GgXe538GrX6ZE', category: 'reel', title: 'Primerpolytech reel 2' },
+  { id: '1yEOO3FVYFFch-pQhVLl5dPb1sagWL5k_', category: 'reel', title: 'V_1' },
+  { id: '1f0Gmr-qSRRP1b48xNLH3M01mokgPXSLn', category: 'reel', title: 'V_01' },
+  { id: '1JsNaqaUQsmBC4yeS0ykYaGL99h4wk54b', category: 'reel', title: 'V_02' },
+  { id: '1MG8M58ZsquE91U57d_zrMV6kHk15wyz3', category: 'reel', title: 'V_03' },
+  { id: '1z8jL8yhJP98mQU3jFIvG4Ni0ppltJYDZ', category: 'reel', title: 'v_04' },
+  { id: '1Ato6dMgmnMJQm53SCjFYMXAyW0jgD0ul', category: 'reel', title: 'V_6' },
+  { id: '16SCo-UirUJWtd3IBsVMkoWzMRNarYZjq', category: 'reel', title: 'V_7' },
+  { id: '1xfo1_vL_V_yiL-Aj1-oeQVtfVMH93Gx1', category: 'reel', title: 'v_09' },
+  { id: '17dnutO4NfSxQgjLvExoI56TmlB75pX9H', category: 'reel', title: 'V_9' },
+  { id: '1OPu2eRIEUieHlMDZKCmELnfGuZaNcDWl', category: 'reel', title: 'V_11' },
+  { id: '1BE_pJGucs_KlDijm3efdCCyj_Q7_gSE1', category: 'reel', title: 'V_13' },
+  { id: '1_AO8wgP1Oz0YNLUSg6-CPM_H5D6gPS0l', category: 'reel', title: 'V_18' },
+  { id: '1PmDSlTgKFvO7Vu4OKj_c7LfqBJemKlGb', category: 'reel', title: 'V_19' },
+  { id: '11HrPXTTlnvqGCic1qAwRumSYA_xnfhaF', category: 'video', title: '3F4A5502 1_1080p' },
+  { id: '1ynAq_tx4mEU9w2mvstQfzCDenBOxWsWe', category: 'video', title: 'ajay sir Linked Comp 01 3_1080p' },
+  { id: '1PepKuo7_-FQ_7HQCAeLJ9YwcKfo6tCoz', category: 'video', title: 'health insurance_1080p' },
+  { id: '1ebhvW2L4Pg1D5FD2KHuJxC_8ykD40Qs6', category: 'video', title: 'tv ad-Final-Correction' }
 ];
 
 // ===== RENDER PORTFOLIO CAROUSELS =====
 const carouselsContainer = document.getElementById('portfolioCarousels');
 const CATEGORIES = [
-  { key: 'brand', title: 'Badiya Brand_work' },
-  { key: 'client', title: 'Client_work' },
-  { key: 'instagram', title: 'instragram client work' },
-  { key: 'personal', title: 'Personal work' }
+  { key: 'reel', title: 'Reel Videos' },
+  { key: 'video', title: 'Videos' }
 ];
 
 function renderCarousels() {
@@ -346,3 +335,35 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
     window.scrollTo({ top: target.offsetTop - 80, behavior: 'smooth' });
   });
 });
+
+// ===== DYNAMIC GOOGLE DRIVE LOADER =====
+async function loadDynamicVideos() {
+  const isLocalOrVercel = window.location.hostname.includes('vercel.app') || window.location.hostname.includes('localhost') || window.location.hostname.includes('127.0.0.1');
+  const apiUrl = isLocalOrVercel ? '/api/videos' : 'https://pankaj-blue.vercel.app/api/videos';
+  
+  try {
+    const response = await fetch(apiUrl);
+    if (!response.ok) throw new Error('API response not OK');
+    const data = await response.json();
+    if (Array.isArray(data) && data.length > 0) {
+      // Clear static array and add dynamic videos
+      PORTFOLIO_VIDEOS.length = 0;
+      PORTFOLIO_VIDEOS.push(...data);
+      
+      // Update categories dynamically in case Blogger LinkList doesn't load
+      // Force categories to contain 'reel' and 'video'
+      CATEGORIES.length = 0;
+      CATEGORIES.push(
+        { key: 'reel', title: 'Reel Videos' },
+        { key: 'video', title: 'Videos' }
+      );
+      
+      // Re-render carousels
+      renderCarousels();
+    }
+  } catch (e) {
+    console.warn('Failed to load dynamic videos from Google Drive API, using static fallback database:', e);
+  }
+}
+
+loadDynamicVideos();

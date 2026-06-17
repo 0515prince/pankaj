@@ -355,6 +355,16 @@ section{position:relative;z-index:1}
   text-overflow: ellipsis;
 }
 
+.carousel-card.landscape {
+  flex: 0 0 320px;
+  aspect-ratio: 16/9;
+}
+@media(max-width:768px){
+  .carousel-card.landscape {
+    flex: 0 0 200px;
+  }
+}
+
 /* Arrow controls */
 .carousel-btn {
   position: absolute;
@@ -587,4 +597,9 @@ section{position:relative;z-index:1}
 @keyframes menuFadeIn {
   from { opacity: 0; transform: translateY(-10px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+/* Hide Blogger layout containers on live site */
+.reel-videos-section, .videos-section, .main-blog-section {
+  display: none !important;
 }
