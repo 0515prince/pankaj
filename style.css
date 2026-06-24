@@ -151,7 +151,7 @@ section{position:relative;z-index:1}
 .profile-ring-outer{width:320px;height:320px;border-radius:50%;background:conic-gradient(from 0deg,var(--primary),var(--secondary),var(--accent),var(--primary));padding:4px;animation:rotate-ring 8s linear infinite}
 @keyframes rotate-ring{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
 .profile-ring-inner{width:100%;height:100%;border-radius:50%;overflow:hidden;border:4px solid var(--dark-900);position:relative}
-.profile-img{width:100%;height:100%;object-fit:cover;animation:counter-rot 8s linear infinite}
+.profile-img{width:100%;height:100%;object-fit:cover;object-position:center 15%;animation:counter-rot 8s linear infinite}
 @keyframes counter-rot{from{transform:rotate(0deg)}to{transform:rotate(-360deg)}}
 
 .profile-tools{position:absolute;inset:0;pointer-events:none}
@@ -403,7 +403,7 @@ section{position:relative;z-index:1}
 
 .about-img-wrapper{position:relative;width:380px;max-width:100%}
 .about-img-bg{position:absolute;inset:-20px;background:var(--grad);border-radius:30px;opacity:0.15;filter:blur(30px)}
-.about-img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:24px;border:2px solid var(--glass-border);position:relative;z-index:1}
+.about-img{width:100%;aspect-ratio:3/4;object-fit:cover;object-position:center 15%;border-radius:24px;border:2px solid var(--glass-border);position:relative;z-index:1}
 .experience-badge{position:absolute;bottom:-20px;right:-20px;background:var(--grad);color:#fff;padding:20px;border-radius:20px;text-align:center;z-index:2;box-shadow:var(--shadow);min-width:100px}
 .exp-number{display:block;font-size:2.5rem;font-weight:900;line-height:1}
 .exp-label{font-size:0.75rem;opacity:0.9;line-height:1.3}
