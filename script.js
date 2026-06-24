@@ -101,7 +101,7 @@ window.openVideo = function(id, title) {
   if (modalTitle) modalTitle.textContent = title;
 
   const videoData = PORTFOLIO_VIDEOS.find(v => v.id === id);
-  const isLandscape = videoData && videoData.aspect === '16/9';
+  const isLandscape = videoData && (videoData.category === 'video' || videoData.aspect === '16/9');
   
   const container = document.querySelector('.modal-container');
   const wrapper = document.querySelector('.modal-video-wrapper');
@@ -253,7 +253,7 @@ function renderCarousels() {
           ${videos.map(video => {
             const thumbUrl = `https://lh3.googleusercontent.com/d/${video.id}`;
             return `
-              <div class="carousel-card" data-videoid="${video.id}" data-title="${video.title}" onclick="openVideo('${video.id}', '${video.title.replace(/'/g, "\\'")}')">
+              <div class="carousel-card ${video.category === 'video' ? 'landscape' : ''}" data-videoid="${video.id}" data-title="${video.title}" onclick="openVideo('${video.id}', '${video.title.replace(/'/g, "\\'")}')">
                 <img src="${thumbUrl}" alt="${video.title}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=500&q=80'" />
                 <div class="carousel-overlay">
                   <div class="carousel-play-btn">
